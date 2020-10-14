@@ -13,5 +13,9 @@ public class ListOfHotels {
 	public void setListOfHotels(List<Hotel> listOfHotels) {
 		this.listOfHotels = listOfHotels;
 	}
-	
+
+	public void addHotel(Hotel hotel) {
+		listOfHotels.add(hotel);
+	}
+
 }
