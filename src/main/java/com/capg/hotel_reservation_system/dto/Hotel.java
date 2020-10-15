@@ -4,6 +4,15 @@ public class Hotel {
 	private String name;
 	private int weekdayRate;
 	private int weekendRate;
+	private int rating;
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
 	public int getWeekendRate() {
 		return weekendRate;

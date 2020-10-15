@@ -12,6 +12,8 @@ import org.junit.Test;
 import com.capg.hotel_reservation_system.dto.Hotel;
 import com.capg.hotel_reservation_system.dto.ListOfHotels;
 
+import junit.framework.Assert;
+
 public class HotelReservationTest {
 
 	@Test
@@ -36,18 +38,18 @@ public class HotelReservationTest {
 	
 	@Test
 	public void notAddedHotelCheck_ReturnFalse() {
-		ListOfHotels Hotels = new ListOfHotels();
+		ListOfHotels hotels = new ListOfHotels();
 		Hotel lakewood = new Hotel("Lakewood", 110);
 		Hotel bridgewood = new Hotel("Bridgewood", 150);
 		Hotel ridgewood = new Hotel("Ridgewood", 220);
 		lakewood.setWeekendRate(90);
 		bridgewood.setWeekendRate(50);
 		ridgewood.setWeekendRate(150);
-		Hotels.addHotel(lakewood);
-		Hotels.addHotel(bridgewood);
-		Hotels.addHotel(ridgewood);
+		hotels.addHotel(lakewood);
+		hotels.addHotel(bridgewood);
+		hotels.addHotel(ridgewood);
 		boolean hotelInList = false;
-		for (Hotel hotel : Hotels.getListOfHotels()) {
+		for (Hotel hotel : hotels.getListOfHotels()) {
 			if(hotel.getName().equalsIgnoreCase("Raddison"))
 				hotelInList= true;
 		}
@@ -57,11 +59,12 @@ public class HotelReservationTest {
 	@Test
 	public void FindCheapestHotel_ReturnTrue() {
 		HotelReservation hotelReservation= new HotelReservation();
-		hotelReservation.addHotelsList();
+		ListOfHotels hotels = new ListOfHotels();
+		hotels.addHotelsList();
 		LocalDate dateIn = LocalDate.parse("2020-10-16");
 		LocalDate dateOut = LocalDate.parse("2020-10-18");
 		try {
-		int cheapestPrice = hotelReservation.findCheapestOffer(dateIn, dateOut);
+		int cheapestPrice = hotels.findCheapestOffer(dateIn, dateOut);
 		boolean correctChoice = false;
 		if(cheapestPrice==200) {
 			correctChoice=true;
@@ -70,6 +73,25 @@ public class HotelReservationTest {
 		}catch(DateTimeException e) {
 			System.out.println("Invalid Date");
 		}
+	}
+	@Test
+	public void SetRateandGetRate_ReturnTrue() {
+		HotelReservation hotelReservation= new HotelReservation();
+		ListOfHotels hotels = new ListOfHotels();
+		hotels.addHotelsList();
+		int maxRating = 1;
+		int minRating =5;
+		boolean isCorrect =false;
+		for (Hotel hotel : hotels.getListOfHotels()) {
+			if(hotel.getRating()>maxRating)
+				maxRating=hotel.getRating();
+			if(hotel.getRating()<minRating)
+				minRating=hotel.getRating();
+		}
+		if(maxRating==5&&minRating==3)
+			isCorrect=true;
+		assertTrue(isCorrect);
+		
 	}
 
 }
