@@ -44,4 +44,9 @@ public class Hotel {
 		this.weekdayRate = rate;
 	}
 
+	public int getPrice(int weekDays, int weekEnds) {
+		int price = (weekDays * this.getWeekdayRate()) + (weekEnds * this.getWeekendRate());
+		return price;
+	}
+
 }

@@ -46,13 +46,12 @@ public class ListOfHotels {
 		for (Hotel hotel : listOfHotels) {
 			if (cheapestHotel == null) {
 				cheapestHotel = hotel;
-				cheapestPrice = (weekDays * cheapestHotel.getWeekdayRate())
-						+ (weekEnds * cheapestHotel.getWeekendRate());
+				cheapestPrice = cheapestHotel.getPrice(weekDays, weekEnds);
+
 			} else {
-				int priceCheapest = (weekDays * cheapestHotel.getWeekdayRate())
-						+ (weekEnds * cheapestHotel.getWeekendRate());
-				int priceThisHotel = (weekDays * hotel.getWeekdayRate()) + (weekEnds * hotel.getWeekendRate());
-				if (priceThisHotel < priceCheapest) {
+
+				int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
+				if (priceThisHotel < cheapestPrice) {
 					cheapestHotel = hotel;
 					cheapestPrice = priceThisHotel;
 				}
@@ -106,7 +105,7 @@ public class ListOfHotels {
 		Hotel cheapestBestRateHotel = null;
 
 		for (Hotel hotel : listOfHotels) {
-			int priceThisHotel = (weekDays * hotel.getWeekdayRate()) + (weekEnds * hotel.getWeekendRate());
+			int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
 			if (priceThisHotel == cheapestPrice) {
 				if (hotel.getRating() > rating)
 					cheapestBestRateHotel = hotel;
@@ -115,15 +114,26 @@ public class ListOfHotels {
 
 		}
 		return cheapestBestRateHotel;
-		
+
 	}
 
 	public void cheapestHotel(int price, int weekDays, int weekEnds) {
 		System.out.println("Cheapest offers: ");
 		for (Hotel hotel : listOfHotels) {
-			int priceThisHotel = (weekDays * hotel.getWeekdayRate()) + (weekEnds * hotel.getWeekendRate());
+			int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
 			if (priceThisHotel == price)
 				System.out.println(hotel.getName() + ", Total Rates: $" + price);
 		}
+	}
+
+	public Hotel bestRatedHotel() {
+		int rating = 0;
+		Hotel bestRatedHotel = null;
+
+		for (Hotel hotel : listOfHotels) {
+			if (hotel.getRating() > rating)
+				bestRatedHotel = hotel;
+		}
+		return bestRatedHotel;
 	}
 }

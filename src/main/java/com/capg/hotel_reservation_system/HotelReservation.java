@@ -39,7 +39,8 @@ public class HotelReservation {
 			System.out.println("\nEnter which option you want to see:");
 			System.out.println("1. Cheapest Hotel available for given dates");
 			System.out.println("2. Cheapest best rated Hotel for given dates");
-			System.out.println("3. Exit");
+			System.out.println("3. Best Rated Hotel for given dates");
+			System.out.println("4. Exit");
 			int option;
 			option = sc.nextInt();
 			switch (option) {
@@ -48,9 +49,17 @@ public class HotelReservation {
 				break;
 			case 2:
 				Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel(cheapestPrice, weekDays, weekEnds);
-				System.out.println(cheapestBestRateHotel.getName()+", Rating: "+cheapestBestRateHotel.getRating()+" and Total Rate: $"+cheapestPrice);
+				System.out.println(cheapestBestRateHotel.getName() + ", Rating: " + cheapestBestRateHotel.getRating()
+						+ " and Total Rate: $" + cheapestPrice);
 				break;
 			case 3:
+				Hotel bestRatedHotel = hotels.bestRatedHotel();
+				int bestRatedHotelPrice = bestRatedHotel.getPrice(weekDays, weekEnds);
+				System.out.println(bestRatedHotel.getName() + ", Rating: " + bestRatedHotel.getRating()
+						+ " and Total Rate: $" + bestRatedHotelPrice);
+				break;
+
+			case 4:
 				System.out.println("Bye!");
 				return;
 			default:
