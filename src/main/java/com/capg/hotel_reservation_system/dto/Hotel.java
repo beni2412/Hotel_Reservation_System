@@ -2,12 +2,21 @@ package com.capg.hotel_reservation_system.dto;
 
 public class Hotel {
 	private String name;
-	private int rate;
+	private int weekdayRate;
+	private int weekendRate;
 
-	public Hotel(String name, int rate) {
+	public int getWeekendRate() {
+		return weekendRate;
+	}
+
+	public void setWeekendRate(int weekendRate) {
+		this.weekendRate = weekendRate;
+	}
+
+	public Hotel(String name, int weekdayRate) {
 		super();
 		this.name = name;
-		this.rate = rate;
+		this.weekdayRate = weekdayRate;
 	}
 
 	public String getName() {
@@ -18,12 +27,12 @@ public class Hotel {
 		this.name = name;
 	}
 
-	public int getRate() {
-		return rate;
+	public int getWeekdayRate() {
+		return weekdayRate;
 	}
 
-	public void setRate(int rate) {
-		this.rate = rate;
+	public void setWeekdayRate(int rate) {
+		this.weekdayRate = rate;
 	}
 
 }

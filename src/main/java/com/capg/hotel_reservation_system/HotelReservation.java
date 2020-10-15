@@ -17,17 +17,24 @@ public class HotelReservation {
 		System.out.println("Welcome to Hotel Reservation Program");
 		addHotelsList();
 		try {
-		Hotel cheapestHotel = findCheapestOffer();
-		}catch(DateTimeException e) {
+			Hotel cheapestHotel = findCheapestOffer();
+		} catch (DateTimeException e) {
 			System.out.println("Invalid Date");
 		}
 
 	}
 
 	public static void addHotelsList() {
-		hotels.addHotel(new Hotel("Lakewood", 110));
-		hotels.addHotel(new Hotel("Bridgewood", 150));
-		hotels.addHotel(new Hotel("Ridgewood", 220));
+		Hotel lakewood = new Hotel("Lakewood", 110);
+		Hotel bridgewood = new Hotel("Bridgewood", 150);
+		Hotel ridgewood = new Hotel("Ridgewood", 220);
+		lakewood.setWeekendRate(90);
+		bridgewood.setWeekendRate(50);
+		ridgewood.setWeekendRate(150);
+		hotels.addHotel(lakewood);
+		hotels.addHotel(bridgewood);
+		hotels.addHotel(ridgewood);
+		
 	}
 
 	public static Hotel findCheapestOffer() throws DateTimeException {
@@ -42,13 +49,13 @@ public class HotelReservation {
 			if (cheapestHotel == null) {
 				cheapestHotel = cheapest;
 			} else {
-				if (cheapestHotel.getRate() > cheapest.getRate()) {
+				if (cheapestHotel.getWeekdayRate() > cheapest.getWeekdayRate()) {
 					cheapestHotel = cheapest;
 				}
 			}
 		}
 		System.out.println("The cheapest offer is: ");
-		System.out.println(cheapestHotel.getName() + ", Total Rates: $" + cheapestHotel.getRate() * days);
+		System.out.println(cheapestHotel.getName() + ", Total Rates: $" + cheapestHotel.getWeekdayRate() * days);
 		return cheapestHotel;
 	}
 }

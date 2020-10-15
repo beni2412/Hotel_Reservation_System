@@ -19,6 +19,9 @@ public class HotelReservationTest {
 		Hotel lakewood = new Hotel("Lakewood", 110);
 		Hotel bridgewood = new Hotel("Bridgewood", 150);
 		Hotel ridgewood = new Hotel("Ridgewood", 220);
+		lakewood.setWeekendRate(90);
+		bridgewood.setWeekendRate(50);
+		ridgewood.setWeekendRate(150);
 		Hotels.addHotel(lakewood);
 		Hotels.addHotel(bridgewood);
 		Hotels.addHotel(ridgewood);
@@ -36,6 +39,9 @@ public class HotelReservationTest {
 		Hotel lakewood = new Hotel("Lakewood", 110);
 		Hotel bridgewood = new Hotel("Bridgewood", 150);
 		Hotel ridgewood = new Hotel("Ridgewood", 220);
+		lakewood.setWeekendRate(90);
+		bridgewood.setWeekendRate(50);
+		ridgewood.setWeekendRate(150);
 		Hotels.addHotel(lakewood);
 		Hotels.addHotel(bridgewood);
 		Hotels.addHotel(ridgewood);
