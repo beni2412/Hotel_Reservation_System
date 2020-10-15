@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
@@ -57,10 +58,12 @@ public class HotelReservationTest {
 	public void FindCheapestHotel_ReturnTrue() {
 		HotelReservation hotelReservation= new HotelReservation();
 		hotelReservation.addHotelsList();
+		LocalDate dateIn = LocalDate.parse("2020-10-16");
+		LocalDate dateOut = LocalDate.parse("2020-10-18");
 		try {
-		Hotel cheapest = hotelReservation.findCheapestOffer();
+		int cheapestPrice = hotelReservation.findCheapestOffer(dateIn, dateOut);
 		boolean correctChoice = false;
-		if(cheapest.getName().equalsIgnoreCase("Lakewood")) {
+		if(cheapestPrice==200) {
 			correctChoice=true;
 			assertTrue(correctChoice);
 		}
