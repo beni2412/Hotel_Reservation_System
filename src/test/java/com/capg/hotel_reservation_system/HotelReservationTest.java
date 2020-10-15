@@ -3,6 +3,7 @@ package com.capg.hotel_reservation_system;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.DateTimeException;
 import java.util.List;
 
 import org.junit.Test;
@@ -44,6 +45,22 @@ public class HotelReservationTest {
 				hotelInList= true;
 		}
 		assertFalse(hotelInList);
+	}
+	
+	@Test
+	public void FindCheapestHotel_ReturnTrue() {
+		HotelReservation hotelReservation= new HotelReservation();
+		hotelReservation.addHotelsList();
+		try {
+		Hotel cheapest = hotelReservation.findCheapestOffer();
+		boolean correctChoice = false;
+		if(cheapest.getName().equalsIgnoreCase("Lakewood")) {
+			correctChoice=true;
+			assertTrue(correctChoice);
+		}
+		}catch(DateTimeException e) {
+			System.out.println("Invalid Date");
+		}
 	}
 
 }
