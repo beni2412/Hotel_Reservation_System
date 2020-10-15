@@ -93,5 +93,25 @@ public class HotelReservationTest {
 		assertTrue(isCorrect);
 		
 	}
+	
+	@Test
+	public void cheapestBestRatedHotel_ReturnTrue() {
+		ListOfHotels hotels = new ListOfHotels();
+		hotels.addHotelsList();
+		LocalDate dateIn = LocalDate.parse("2020-10-16");
+		LocalDate dateOut = LocalDate.parse("2020-10-18");
+		int weekDays = hotels.noOfWeekDays(dateIn, dateOut);
+		int weekEnds = hotels.noOfWeekendDays(dateIn, dateOut);
+		boolean correctChoice = false;
+		try {
+			int cheapestPrice = hotels.findCheapestOffer(dateIn, dateOut);
+			Hotel cheapestBestRateHotel=hotels.cheapestBestRatedHotel(cheapestPrice, weekDays, weekEnds);
+			if(cheapestBestRateHotel.getName().equalsIgnoreCase("Bridgewood"))
+				correctChoice=true;
+			assertTrue(correctChoice);
+		}catch (DateTimeException e) {
+			System.out.println("Invalid Date");
+		}
+	}
 
 }
