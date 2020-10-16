@@ -64,7 +64,7 @@ public class HotelReservationTest {
 		LocalDate dateIn = LocalDate.parse("2020-10-16");
 		LocalDate dateOut = LocalDate.parse("2020-10-18");
 		try {
-			int cheapestPrice = hotels.findCheapestOffer(dateIn, dateOut);
+			int cheapestPrice = hotels.findCheapestOffer("regular", dateIn, dateOut);
 			boolean correctChoice = false;
 			if (cheapestPrice == 200) {
 				correctChoice = true;
@@ -105,8 +105,8 @@ public class HotelReservationTest {
 		int weekEnds = hotels.noOfWeekendDays(dateIn, dateOut);
 		boolean correctChoice = false;
 		try {
-			int cheapestPrice = hotels.findCheapestOffer(dateIn, dateOut);
-			Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel(cheapestPrice, weekDays, weekEnds);
+			int cheapestPrice = hotels.findCheapestOffer("regular", dateIn, dateOut);
+			Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel("regular",cheapestPrice, weekDays, weekEnds);
 			if (cheapestBestRateHotel.getName().equalsIgnoreCase("Bridgewood"))
 				correctChoice = true;
 			assertTrue(correctChoice);
@@ -136,6 +136,24 @@ public class HotelReservationTest {
 			correctChoice = true;
 		assertFalse(correctChoice);
 	}
-
+	@Test
+	public void cheapestBestRatedHotelForRewardCustomer_ReturnTrue() {
+		ListOfHotels hotels = new ListOfHotels();
+		hotels.addHotelsList();
+		LocalDate dateIn = LocalDate.parse("2020-10-16");
+		LocalDate dateOut = LocalDate.parse("2020-10-18");
+		int weekDays = hotels.noOfWeekDays(dateIn, dateOut);
+		int weekEnds = hotels.noOfWeekendDays(dateIn, dateOut);
+		boolean correctChoice = false;
+		try {
+			int cheapestPrice = hotels.findCheapestOffer("reward", dateIn, dateOut);
+			Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel("reward",cheapestPrice, weekDays, weekEnds);
+			if (cheapestBestRateHotel.getName().equalsIgnoreCase("Ridgewood"))
+				correctChoice = true;
+			assertTrue(correctChoice);
+		} catch (DateTimeException e) {
+			System.out.println("Invalid Date");
+		}
+	}
 
 }

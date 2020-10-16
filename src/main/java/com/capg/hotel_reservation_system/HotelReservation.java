@@ -7,6 +7,7 @@ import java.time.Period;
 import java.util.Scanner;
 
 import com.capg.hotel_reservation_system.dto.Hotel;
+import com.capg.hotel_reservation_system.dto.InvalidCustomerException;
 import com.capg.hotel_reservation_system.dto.ListOfHotels;
 
 public class HotelReservation {
@@ -20,15 +21,30 @@ public class HotelReservation {
 		int weekDays = 0;
 		int weekEnds = 0;
 		int cheapestPrice = 0;
+		String customerType = "";
 		for (;;) {
 			try {
 				System.out.println("Enter check-in date: (YYYY-MM-DD) ");
 				LocalDate dateIn = LocalDate.parse(sc.next());
 				System.out.println("Enter check-out date: (YYYY-MM-DD) ");
 				LocalDate dateOut = LocalDate.parse(sc.next());
+
+				for (;;) {
+					try {
+						System.out.println("Enter customer type (regular/reward): ");
+						customerType = sc.next();
+						if (customerType.equalsIgnoreCase("reward") || customerType.equalsIgnoreCase("regular"))
+							break;
+						else
+							throw new InvalidCustomerException();
+					} catch (InvalidCustomerException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+
 				weekDays = hotels.noOfWeekDays(dateIn, dateOut);
 				weekEnds = hotels.noOfWeekendDays(dateIn, dateOut);
-				cheapestPrice = hotels.findCheapestOffer(dateIn, dateOut);
+				cheapestPrice = hotels.findCheapestOffer(customerType, dateIn, dateOut);
 			} catch (DateTimeException e) {
 				System.out.println("Invalid Date");
 			}
@@ -45,16 +61,18 @@ public class HotelReservation {
 			option = sc.nextInt();
 			switch (option) {
 			case 1:
-				hotels.cheapestHotel(cheapestPrice, weekDays, weekEnds);
+				hotels.cheapestHotel(customerType, cheapestPrice, weekDays, weekEnds);
 				break;
 			case 2:
-				Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel(cheapestPrice, weekDays, weekEnds);
+				Hotel cheapestBestRateHotel = hotels.cheapestBestRatedHotel(customerType, cheapestPrice, weekDays,
+						weekEnds);
 				System.out.println(cheapestBestRateHotel.getName() + ", Rating: " + cheapestBestRateHotel.getRating()
 						+ " and Total Rate: $" + cheapestPrice);
 				break;
 			case 3:
 				Hotel bestRatedHotel = hotels.bestRatedHotel();
-				int bestRatedHotelPrice = bestRatedHotel.getPrice(weekDays, weekEnds);
+				int bestRatedHotelPrice = customerType.equalsIgnoreCase("regular") ? bestRatedHotel.getPrice(weekDays, weekEnds)
+						: bestRatedHotel.getRewardCustomerPrice(weekDays, weekEnds);
 				System.out.println(bestRatedHotel.getName() + ", Rating: " + bestRatedHotel.getRating()
 						+ " and Total Rate: $" + bestRatedHotelPrice);
 				break;

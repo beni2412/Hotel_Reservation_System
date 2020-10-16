@@ -43,7 +43,7 @@ public class ListOfHotels {
 
 	}
 
-	public int findCheapestOffer(LocalDate dateIn, LocalDate dateOut) throws DateTimeException {
+	public int findCheapestOffer(String customerType, LocalDate dateIn, LocalDate dateOut) throws DateTimeException {
 
 		int weekDays = noOfWeekDays(dateIn, dateOut);
 		int weekEnds = noOfWeekendDays(dateIn, dateOut);
@@ -52,11 +52,11 @@ public class ListOfHotels {
 		for (Hotel hotel : listOfHotels) {
 			if (cheapestHotel == null) {
 				cheapestHotel = hotel;
-				cheapestPrice = cheapestHotel.getPrice(weekDays, weekEnds);
-
+				cheapestPrice = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
+						: hotel.getRewardCustomerPrice(weekDays, weekEnds);
 			} else {
-
-				int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
+				int priceThisHotel = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
+						: hotel.getRewardCustomerPrice(weekDays, weekEnds);
 				if (priceThisHotel < cheapestPrice) {
 					cheapestHotel = hotel;
 					cheapestPrice = priceThisHotel;
@@ -106,12 +106,13 @@ public class ListOfHotels {
 		return countOfWeekendDays;
 	}
 
-	public Hotel cheapestBestRatedHotel(int cheapestPrice, int weekDays, int weekEnds) {
+	public Hotel cheapestBestRatedHotel(String customerType, int cheapestPrice, int weekDays, int weekEnds) {
 		int rating = 0;
 		Hotel cheapestBestRateHotel = null;
 
 		for (Hotel hotel : listOfHotels) {
-			int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
+			int priceThisHotel = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
+					: hotel.getRewardCustomerPrice(weekDays, weekEnds);
 			if (priceThisHotel == cheapestPrice) {
 				if (hotel.getRating() > rating)
 					cheapestBestRateHotel = hotel;
@@ -123,10 +124,11 @@ public class ListOfHotels {
 
 	}
 
-	public void cheapestHotel(int price, int weekDays, int weekEnds) {
+	public void cheapestHotel(String customerType, int price, int weekDays, int weekEnds) {
 		System.out.println("Cheapest offers: ");
 		for (Hotel hotel : listOfHotels) {
-			int priceThisHotel = hotel.getPrice(weekDays, weekEnds);
+			int priceThisHotel = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
+					: hotel.getRewardCustomerPrice(weekDays, weekEnds);
 			if (priceThisHotel == price)
 				System.out.println(hotel.getName() + ", Total Rates: $" + price);
 		}

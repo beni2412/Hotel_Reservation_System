@@ -66,5 +66,10 @@ public class Hotel {
 		int price = (weekDays * this.getWeekdayRate()) + (weekEnds * this.getWeekendRate());
 		return price;
 	}
+	
+	public int getRewardCustomerPrice(int weekDays, int weekEnds) {
+		int price = (weekDays * this.getRewardWeekdayRate()) + (weekEnds * this.getRewardWeekendRate());
+		return price;
+	}
 
 }
