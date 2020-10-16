@@ -138,11 +138,9 @@ public class ListOfHotels {
 	public Hotel bestRatedHotel() {
 		int rating = 0;
 		Hotel bestRatedHotel = null;
-
-		for (Hotel hotel : listOfHotels) {
-			if (hotel.getRating() > rating)
-				bestRatedHotel = hotel;
-		}
+		 List<Hotel> listHotels = listOfHotels.stream().sorted(Comparator.comparing(Hotel::getRating).reversed()).collect(Collectors.toList());
+			 bestRatedHotel = listHotels.get(0);
+		
 		return bestRatedHotel;
 	}
 }
