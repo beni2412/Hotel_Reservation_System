@@ -5,6 +5,24 @@ public class Hotel {
 	private int weekdayRate;
 	private int weekendRate;
 	private int rating;
+	private int rewardWeekdayRate;
+	private int rewardWeekendRate;
+
+	public int getRewardWeekdayRate() {
+		return rewardWeekdayRate;
+	}
+
+	public void setRewardWeekdayRate(int rewardWeekdayRate) {
+		this.rewardWeekdayRate = rewardWeekdayRate;
+	}
+
+	public int getRewardWeekendRate() {
+		return rewardWeekendRate;
+	}
+
+	public void setRewardWeekendRate(int rewardWeekendRate) {
+		this.rewardWeekendRate = rewardWeekendRate;
+	}
 
 	public int getRating() {
 		return rating;

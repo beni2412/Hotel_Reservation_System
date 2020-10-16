@@ -31,6 +31,12 @@ public class ListOfHotels {
 		lakewood.setRating(3);
 		bridgewood.setRating(4);
 		ridgewood.setRating(5);
+		lakewood.setRewardWeekdayRate(80);
+		lakewood.setRewardWeekendRate(80);
+		bridgewood.setRewardWeekdayRate(110);
+		bridgewood.setRewardWeekendRate(50);
+		ridgewood.setRewardWeekdayRate(100);
+		ridgewood.setRewardWeekendRate(40);
 		addHotel(lakewood);
 		addHotel(bridgewood);
 		addHotel(ridgewood);
