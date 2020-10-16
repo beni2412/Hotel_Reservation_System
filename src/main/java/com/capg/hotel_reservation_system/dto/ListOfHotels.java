@@ -5,6 +5,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ListOfHotels {
 	private List<Hotel> listOfHotels = new ArrayList<Hotel>();
@@ -109,30 +112,28 @@ public class ListOfHotels {
 	public Hotel cheapestBestRatedHotel(String customerType, int cheapestPrice, int weekDays, int weekEnds) {
 		int rating = 0;
 		Hotel cheapestBestRateHotel = null;
-
-		for (Hotel hotel : listOfHotels) {
+		 List<Hotel> listOfCheapestHotels = listOfHotels.stream().filter(hotel ->{
 			int priceThisHotel = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
 					: hotel.getRewardCustomerPrice(weekDays, weekEnds);
-			if (priceThisHotel == cheapestPrice) {
-				if (hotel.getRating() > rating)
-					cheapestBestRateHotel = hotel;
-				rating = hotel.getRating();
-			}
-
-		}
+			if (priceThisHotel == cheapestPrice)
+				return true;
+			else return false;
+		}).sorted(Comparator.comparing(Hotel::getRating).reversed()).collect(Collectors.toList());
+		 cheapestBestRateHotel = listOfCheapestHotels.get(0);
+		
 		return cheapestBestRateHotel;
 
 	}
 
 	public void cheapestHotel(String customerType, int price, int weekDays, int weekEnds) {
 		System.out.println("Cheapest offers: ");
-		for (Hotel hotel : listOfHotels) {
+		listOfHotels.stream().forEach(hotel -> {
 			int priceThisHotel = customerType.equalsIgnoreCase("regular") ? hotel.getPrice(weekDays, weekEnds)
 					: hotel.getRewardCustomerPrice(weekDays, weekEnds);
 			if (priceThisHotel == price)
 				System.out.println(hotel.getName() + ", Total Rates: $" + price);
+		});
 		}
-	}
 
 	public Hotel bestRatedHotel() {
 		int rating = 0;
